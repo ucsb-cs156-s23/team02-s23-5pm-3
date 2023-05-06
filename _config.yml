@@ -23,4 +23,4 @@ repo_name: "This-should-be-overridden-by-github-actions-script"
 repo: ucsb-cs156-s23/team02-s23-5pm-3
 owner: ucsb-cs156-s23
 repo_name: team02-s23-5pm-3
-pull_requests: [{"author":{"id":"MDQ6VXNlcjExMTkwMTc=","is_bot":false,"login":"pconrad","name":"Phill Conrad"},"headRefName":"pc-fix-docs-workflows","number":41,"title":"pc - fix docs workflows","url":"https://github.com/ucsb-cs156-s23/team02-s23-5pm-3/pull/41"}]
+pull_requests: []
