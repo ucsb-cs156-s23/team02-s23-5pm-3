@@ -39,6 +39,17 @@ public class RestaurantController extends ApiController {
         return restaurants;
     }
 
+    @ApiOperation(value = "Get a single restaurant")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("")
+    public Restaurant getById(
+            @ApiParam("id") @RequestParam Long id) {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Restaurant.class, id));
+
+        return restaurant;
+    }
+
     @ApiOperation(value = "Create a new restaurant")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
@@ -63,6 +74,40 @@ public class RestaurantController extends ApiController {
         Restaurant savedRestaurant = restaurantRepository.save(restaurant);
 
         return savedRestaurant;
+    }
+
+    @ApiOperation(value = "Delete a restaurant")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("")
+    public Object deleteRestaurant(
+            @ApiParam("id") @RequestParam Long id) {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Restaurant.class, id));
+
+        restaurantRepository.delete(restaurant);
+        return genericMessage("Restaurant with id %s deleted".formatted(id));
+    }
+
+    @ApiOperation(value = "Update a single restaurant")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("")
+    public Restaurant updateRestaurant(
+            @ApiParam("id") @RequestParam Long id,
+            @RequestBody @Valid Restaurant incoming) {
+
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Restaurant.class, id));
+
+        restaurant.setName(incoming.getName());
+        restaurant.setAddress(incoming.getAddress());
+        restaurant.setCity(incoming.getCity());
+        restaurant.setState(incoming.getState());
+        restaurant.setZip(incoming.getZip());
+        restaurant.setDescription(incoming.getDescription());
+
+        restaurantRepository.save(restaurant);
+
+        return restaurant;
     }
 
 }
