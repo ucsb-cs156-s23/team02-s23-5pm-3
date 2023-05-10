@@ -82,30 +82,28 @@ public class RestaurantControllerTests extends ControllerTestCase {
 
                 /* TODO: setup tests */
 
-                Restaurant carrillo = Restaurant.builder()
-                                .name("Carrillo")
-                                .code("carrillo")
-                                .hasSackMeal(false)
-                                .hasTakeOutMeal(false)
-                                .hasDiningCam(true)
-                                .latitude(34.409953)
-                                .longitude(-119.85277)
+                Restaurant habit = Restaurant.builder()
+                                .name("The Habit")
+                                .address("888 Embarcadero del Norte")
+                                .city("Isla Vista")
+                                .state("CA")
+                                .zip("93117")
+                                .description("Burgers and Fries")
                                 .build();
 
-                Restaurant dlg = Restaurant.builder()
-                                .name("De La Guerra")
-                                .code("de-la-guerra")
-                                .hasSackMeal(false)
-                                .hasTakeOutMeal(false)
-                                .hasDiningCam(true)
-                                .latitude(34.409811)
-                                .longitude(-119.845026)
+                Restaurant cristinos = Restaurant.builder()
+                                .name("Cristino's Bakery")
+                                .address("170 Aero Camino")
+                                .city("Goleta")
+                                .state("CA")
+                                .zip("93117")
+                                .description("This place is takeout only.  It may look mostly like a bakery with Mexican pastries, but it also has amazing burritos and tacos")
                                 .build();
 
-                ArrayList<Restaurant> expectedCommons = new ArrayList<>();
-                expectedCommons.addAll(Arrays.asList(carrillo, dlg));
+                ArrayList<Restaurant> expectedRestaurants = new ArrayList<>();
+                expectedRestaurants.addAll(Arrays.asList(habit, cristinos));
 
-                when(ucsbDiningCommonsRepository.findAll()).thenReturn(expectedCommons);
+                when(restaurantRepository.findAll()).thenReturn(expectedRestaurants);
 
                 // act
                 MvcResult response = mockMvc.perform(get("/api/restaurant/all"))
@@ -113,38 +111,43 @@ public class RestaurantControllerTests extends ControllerTestCase {
 
                 // assert
 
-                verify(ucsbDiningCommonsRepository, times(1)).findAll();
-                String expectedJson = mapper.writeValueAsString(expectedCommons);
+                verify(restaurantRepository, times(1)).findAll();
+                String expectedJson = mapper.writeValueAsString(expectedRestaurants);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
-        public void an_admin_user_can_post_a_new_commons() throws Exception {
+        public void an_admin_user_can_post_a_new_restaurant() throws Exception {
                 // arrange
 
-                Restaurant ortega = Restaurant.builder()
-                                .name("Ortega")
-                                .code("ortega")
-                                .hasSackMeal(true)
-                                .hasTakeOutMeal(true)
-                                .hasDiningCam(true)
-                                .latitude(34.410987)
-                                .longitude(-119.84709)
+                Restaurant freebirds = Restaurant.builder()
+                                .name("Freebirds")
+                                .address("879 Embarcadero del Norte")
+                                .city("Isla Vista")
+                                .state("CA")
+                                .zip("93117")
+                                .description("Burrito joint, and iconic Isla Vista location")
                                 .build();
 
-                when(ucsbDiningCommonsRepository.save(eq(ortega))).thenReturn(ortega);
+                when(restaurantRepository.save(eq(freebirds))).thenReturn(freebirds);
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/restaurant/post?name=Ortega&code=ortega&hasSackMeal=true&hasTakeOutMeal=true&hasDiningCam=true&latitude=34.410987&longitude=-119.84709")
+                                post("/api/restaurant/post")
+                                .param("name", "Freebirds")
+                                .param("address", "879 Embarcadero del Norte")
+                                .param("city", "Isla Vista")
+                                .param("state", "CA")
+                                .param("zip", "93117")
+                                .param("description", "Burrito joint, and iconic Isla Vista location")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
-                verify(ucsbDiningCommonsRepository, times(1)).save(ortega);
-                String expectedJson = mapper.writeValueAsString(ortega);
+                verify(restaurantRepository, times(1)).save(freebirds);
+                String expectedJson = mapper.writeValueAsString(freebirds);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
         }
