@@ -43,7 +43,6 @@ public class RestaurantController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public Restaurant postRestaurant(
-        @ApiParam("id") @RequestParam long id,
         @ApiParam("name") @RequestParam String name,
         @ApiParam("address") @RequestParam String address,
         @ApiParam("city") @RequestParam String city,
@@ -54,7 +53,6 @@ public class RestaurantController extends ApiController {
         {
 
         Restaurant restaurant = new Restaurant();
-        restaurant.setId(id);
         restaurant.setName(name);
         restaurant.setAddress(address);
         restaurant.setCity(city);
