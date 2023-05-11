@@ -21,6 +21,7 @@ public class Music {
   private long id;
 
   private String title;
+  private String author;
   private float rating;  
   private int views;
 }

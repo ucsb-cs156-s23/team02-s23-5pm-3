@@ -58,6 +58,7 @@ public class MusicController extends ApiController {
         public Music postSongMusic(
             @ApiParam("id") @RequestParam long id,
             @ApiParam("title") @RequestParam String title,
+            @ApiParam("author") @RequestParam String author,
             @ApiParam("rating") @RequestParam float rating,
             @ApiParam("views") @RequestParam int views
             )
@@ -66,6 +67,7 @@ public class MusicController extends ApiController {
             Music music = new Music();
             music.setId(id);
             music.setTitle(title);
+            music.setAuthor(author);
             music.setRating(rating);
             music.setViews(views);
 
@@ -99,6 +101,7 @@ public class MusicController extends ApiController {
     
             songs.setId(incoming.getId());  
             songs.setTitle(incoming.getTitle());
+            songs.setAuthor(incoming.getAuthor());
             songs.setRating(incoming.getRating());
             songs.setViews(incoming.getViews());
     
