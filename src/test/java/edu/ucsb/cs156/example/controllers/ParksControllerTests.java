@@ -172,7 +172,7 @@ public class ParksControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/parks/post?title=Test Park&rating=0&views=0")
+                                post("/api/parks/post?name=Test Park&address=123 Fake Ave&rating=3.9")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
