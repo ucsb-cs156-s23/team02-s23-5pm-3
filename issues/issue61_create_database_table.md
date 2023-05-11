@@ -4,7 +4,7 @@ Create database table for Musics
 # Acceptance Criteria:
 
 - [ ] There is an `@Entity` class called Music.java
-- [ ] There is a `@Repository` class called Music.java
+- [ ] There is a `@Repository` class called MusicRespository.java
 - [ ] When you start up the repo on localhost, you can see the table
       using the H2 console (see the file `docs/h2-database.md` for 
       instructions.)
