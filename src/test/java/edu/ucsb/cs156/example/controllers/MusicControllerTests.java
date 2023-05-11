@@ -177,7 +177,7 @@ public class MusicControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                post("/api/musics/post?title=Test Music&rating=0&views=0")
+                                post("/api/musics/post?title=Test Music&author=Test Name&rating=0&views=0")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
