@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,12 +56,10 @@ public class AnimalController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/post")
     public Animal postAnimal(
-        @ApiParam("name") @RequestParam String name,
-        @ApiParam("genus") @RequestParam String genus,
-        @ApiParam("species") @RequestParam String species
-
-        )
-        {
+            @ApiParam("name") @RequestParam String name,
+            @ApiParam("genus") @RequestParam String genus,
+            @ApiParam("species") @RequestParam String species)
+            throws JsonProcessingException {
 
         Animal animal = new Animal();
         animal.setName(name);

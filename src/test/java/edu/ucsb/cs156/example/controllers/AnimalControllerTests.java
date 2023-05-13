@@ -3,7 +3,6 @@ package edu.ucsb.cs156.example.controllers;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 import edu.ucsb.cs156.example.ControllerTestCase;
-import edu.ucsb.cs156.example.controllers.AnimalController;
 import edu.ucsb.cs156.example.entities.Animal;
 import edu.ucsb.cs156.example.repositories.AnimalRepository;
 
@@ -164,7 +163,6 @@ public class AnimalControllerTests extends ControllerTestCase {
         }
 
 
-        // STOPPING HERE | WIP
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
         public void an_admin_user_can_post_a_new_animal() throws Exception {
@@ -288,7 +286,7 @@ public class AnimalControllerTests extends ControllerTestCase {
 
                 String requestBody = mapper.writeValueAsString(animalEdited);
 
-                when(animalRepo.findById(eq(67L))).thenReturn(Optional.empty());
+                when(animalRepository.findById(eq(67L))).thenReturn(Optional.empty());
 
                 // act
                 MvcResult response = mockMvc.perform(
