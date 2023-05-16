@@ -255,7 +255,7 @@ public class AnimalControllerTests extends ControllerTestCase {
 
                 String requestBody = mapper.writeValueAsString(animalEdited);
 
-                when(animalepository.findById(eq(67L))).thenReturn(Optional.of(animalOrig));
+                when(animalRepository.findById(eq(67L))).thenReturn(Optional.of(animalOrig));
 
                 // act
                 MvcResult response = mockMvc.perform(
